@@ -6,14 +6,23 @@ module ActiveRecord
       end
     
       module AssignRateWithUserId
-			  def <<( rate )
-			      r = Rating.new
-			      r.rate = rate
-			      r.rateable = proxy_owner
-			      r.user_id = rate.user_id
-			      r.save
-			  end
-			end 
+        def <<( rate )
+          r = Rating.new
+          r.rate = rate
+          r.rateable = proxy_owner
+          r.user_id = rate.user_id
+          r.save
+        end
+
+        def rate_with_review(rate, review)
+          r = Rating.new
+          r.rate = rate
+          r.rateable = proxy_owner
+          r.user_id = rate.user_id
+          r.review = review
+          r.save
+        end
+      end 
 			
 	    module ClassMethods
 	      def acts_as_rateable(options = {})
